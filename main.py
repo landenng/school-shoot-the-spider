@@ -15,7 +15,7 @@ class Game:
 
     def __init__(self) -> None:
         w_sprite = Wizard((WIDTH / 2, HEIGHT), WIDTH, 5)
-        self.s = pygame.sprite.GroupSingle(w_sprite)
+        self.w = pygame.sprite.GroupSingle(w_sprite)
 
         s_sprite = Spider((randint(0, 80), randint(0, 200)))
         self.s = pygame.sprite.GroupSingle(s_sprite)
