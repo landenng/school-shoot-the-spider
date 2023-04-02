@@ -12,10 +12,10 @@ class Spider(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft = position)
         self.speed = randint(1, 8)
 
-    def destroy(self):
+    def reset(self):
         if self.rect.x >= 1200:
-            self.kill()
+            self.__init__((randint(0, 80), randint(0, 200)))
 
     def update(self):
         self.rect.x += self.speed
-        self.destroy()
+        self.reset()

@@ -15,24 +15,29 @@ class Game:
 
     def __init__(self) -> None:
         w_sprite = Wizard((WIDTH / 2, HEIGHT), WIDTH, 5)
-        self.w = pygame.sprite.GroupSingle(w_sprite)
+        self.wizard = pygame.sprite.GroupSingle(w_sprite)
 
         s_sprite = Spider((randint(0, 80), randint(0, 200)))
-        self.s = pygame.sprite.GroupSingle(s_sprite)
+        self.spider = pygame.sprite.GroupSingle(s_sprite)
 
-    # def spider_checker(self):
-    #     if self.s.rect.right >= WIDTH:
-    #         s_sprite = Spider((randint(0, 80), randint(0, 200)))
-    #         self.s = pygame.sprite.GroupSingle(s_sprite)
+    def collision_checks(self):
+
+        #bullets
+        if self.wizard.sprite.bullets:
+            for bullet in self.wizard.sprite.bullets:
+                if pygame.sprite.spritecollide(bullet, self.spider, True):
+                    s_sprite = Spider((randint(0, 80), randint(0, 200)))
+                    self.spider = pygame.sprite.GroupSingle(s_sprite)
 
     # function to update and draw all sprite groups
     def run(self):
-        self.w.update()
-        self.w.sprite.bullets.draw(screen)
-        self.w.draw(screen)
+        self.wizard.update()
+        self.wizard.sprite.bullets.draw(screen)
+        self.wizard.draw(screen)
+        self.collision_checks()
 
-        self.s.update()
-        self.s.draw(screen)
+        self.spider.update()
+        self.spider.draw(screen)
 
 if __name__ == '__main__':
     # Initialize pygame library, display, and clock
