@@ -1,7 +1,6 @@
 import pygame
 from Constants import *
-from Spider import *
-from Bullet import Bullet
+from Bullet import *
 
 class Wizard(pygame.sprite.Sprite):
 

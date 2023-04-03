@@ -1,7 +1,5 @@
 import pygame
 from Constants import *
-from Wizard import *
-from Spider import *
 
 class Bullet(pygame.sprite.Sprite):
 

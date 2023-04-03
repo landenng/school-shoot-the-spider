@@ -7,8 +7,6 @@
 
 # import libraries that you will need
 import pygame
-from random import randint, choice
-
 
 # constants for screen size
 WIDTH = 1200
