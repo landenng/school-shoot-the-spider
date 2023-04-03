@@ -3,6 +3,7 @@ from random import randint
 from Constants import *
 from Wizard import *
 from Bullet import *
+from main import Game
 
 class Spider(pygame.sprite.Sprite):
 

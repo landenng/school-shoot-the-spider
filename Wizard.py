@@ -10,7 +10,9 @@ class Wizard(pygame.sprite.Sprite):
         self.image = pygame.image.load("images/wizard.png").convert_alpha()
         self.rect = self.image.get_rect(midbottom = position)
         self.speed = speed
-        self.max_x_constraint = constraint
+        self.max_x = constraint
+
+        # variables used in allowing the player to shoot multiple times with multiple bullets on screen
         self.ready = True
         self.bullet_time = 0
         self.bullet_cooldown = 600
@@ -40,8 +42,8 @@ class Wizard(pygame.sprite.Sprite):
     def constraint(self):
         if self.rect.left <= 0:
             self.rect.left = 0
-        if self.rect.right >= self.max_x_constraint:
-            self.rect.right = self.max_x_constraint
+        if self.rect.right >= self.max_x:
+            self.rect.right = self.max_x
 
     def shoot(self):
         self.bullets.add(Bullet(self.rect.center))

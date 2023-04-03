@@ -8,7 +8,7 @@ import pygame
 from random import randint
 from Constants import *
 from Wizard import *
-from Spider import Spider
+from Spider import *
 from Bullet import *
 
 class Game:
@@ -17,17 +17,26 @@ class Game:
         w_sprite = Wizard((WIDTH / 2, HEIGHT), WIDTH, 5)
         self.wizard = pygame.sprite.GroupSingle(w_sprite)
 
+        # lives and scoring system
+        self.score = 0
+        self.font = pygame.font.Font("font/Pixeled.ttf", 20)
+
         s_sprite = Spider((randint(0, 80), randint(0, 200)))
         self.spider = pygame.sprite.GroupSingle(s_sprite)
 
     def collision_checks(self):
-
         #bullets
         if self.wizard.sprite.bullets:
             for bullet in self.wizard.sprite.bullets:
                 if pygame.sprite.spritecollide(bullet, self.spider, True):
+                    self.score += 1
                     s_sprite = Spider((randint(0, 80), randint(0, 200)))
                     self.spider = pygame.sprite.GroupSingle(s_sprite)
+
+    def display_score(self):
+        score_surf = self.font.render(f"score: {self.score}", False, "black")
+        score_rect = score_surf.get_rect(bottomleft = (10, HEIGHT))
+        screen.blit(score_surf, score_rect)
 
     # function to update and draw all sprite groups
     def run(self):
@@ -39,9 +48,12 @@ class Game:
         self.spider.update()
         self.spider.draw(screen)
 
+        self.display_score()
+
 if __name__ == '__main__':
     # Initialize pygame library, display, and clock
     pygame.init()
+    my_font = pygame.font.SysFont('Comic Sans MS', 30)
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     clock = pygame.time.Clock()
     game = Game()
