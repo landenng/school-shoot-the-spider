@@ -5,9 +5,6 @@
 #   from Constants import *
 #####################################################################
 
-# import libraries that you will need
-import pygame
-
 # constants for screen size
 WIDTH = 1200
 HEIGHT = 1000
