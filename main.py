@@ -42,6 +42,7 @@ class Game:
         score_rect = score_surf.get_rect(bottomleft = (10, HEIGHT))
         screen.blit(score_surf, score_rect)
 
+    # displays the lives in the bottom right corner
     def display_lives(self):
         life_surf = self.font.render(f"lives: {self.lives}", False, "black")
         life_rect = life_surf.get_rect(bottomright = (WIDTH - 10, HEIGHT))
