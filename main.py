@@ -66,6 +66,7 @@ class Game:
         life_rect = life_surf.get_rect(bottomright = (WIDTH - 10, HEIGHT))
         screen.blit(life_surf, life_rect)
 
+    # displays the game over screen
     def game_over(self):
         if self.lives == 0:
             game_over_surf = self.font.render("You have no more lives", False, "black")
