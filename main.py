@@ -10,6 +10,7 @@ from Constants import *
 from Wizard import *
 from Spider import *
 from Bullet import *
+from Offscreen import *
 
 class Game:
 
@@ -19,11 +20,15 @@ class Game:
 
         # lives and scoring system
         self.lives = 3
+        self.can_subtract = True
         self.score = 0
         self.font = pygame.font.Font("font/Pixeled.ttf", 20)
 
         s_sprite = Spider((randint(0, 80), randint(0, 200)))
         self.spider = pygame.sprite.GroupSingle(s_sprite)
+
+        o_sprite = Offscreen((1200, 0))
+        self.offscreen = pygame.sprite.Group(o_sprite)
 
     # function used to check the collision between bullet objects and the spider
     def collision_checks(self):
@@ -35,6 +40,14 @@ class Game:
                     self.score += 1
                     s_sprite = Spider((randint(0, 80), randint(0, 200)))
                     self.spider = pygame.sprite.GroupSingle(s_sprite)
+                    self.can_subtract = True
+
+        if self.spider:
+            for offscreen in self.offscreen:
+                if pygame.sprite.spritecollide(offscreen, self.spider, False):
+                    if self.lives > 0 and self.can_subtract == True:
+                        self.lives -= 1
+                        self.can_subtract = False
 
     # displays the score in bottom left corner
     def display_score(self):
@@ -48,6 +61,12 @@ class Game:
         life_rect = life_surf.get_rect(bottomright = (WIDTH - 10, HEIGHT))
         screen.blit(life_surf, life_rect)
 
+    def game_over(self):
+        if self.lives == 0:
+            game_over_surf = self.font.render("You have no more lives", False, "black")
+            game_over_rect = game_over_surf.get_rect(center = (WIDTH / 2, HEIGHT / 2))
+            screen.blit(game_over_surf, game_over_rect)
+
     # function to update and draw all sprite groups
     def run(self):
         self.wizard.update()
@@ -58,8 +77,12 @@ class Game:
         self.spider.update()
         self.spider.draw(screen)
 
+        self.offscreen.draw(screen)
+
         self.display_score()
         self.display_lives()
+
+        self.game_over()
 
 if __name__ == '__main__':
     # Initialize pygame library, display, and clock
