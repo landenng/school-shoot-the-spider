@@ -27,7 +27,7 @@ class Game:
         s_sprite = Spider((randint(0, 80), randint(0, 200)))
         self.spider = pygame.sprite.GroupSingle(s_sprite)
 
-        off_sprite = Offscreen((1200, 0))
+        off_sprite = Offscreen((1250, 0))
         on_sprite = Offscreen((0, 0))
         self.offscreen = pygame.sprite.Group(off_sprite)
         self.onscreen = pygame.sprite.Group(on_sprite)
