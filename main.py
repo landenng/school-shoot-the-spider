@@ -27,8 +27,10 @@ class Game:
         s_sprite = Spider((randint(0, 80), randint(0, 200)))
         self.spider = pygame.sprite.GroupSingle(s_sprite)
 
-        o_sprite = Offscreen((1200, 0))
-        self.offscreen = pygame.sprite.Group(o_sprite)
+        off_sprite = Offscreen((1200, 0))
+        on_sprite = Offscreen((0, 0))
+        self.offscreen = pygame.sprite.Group(off_sprite)
+        self.onscreen = pygame.sprite.Group(on_sprite)
 
     # function used to check the collision between bullet objects and the spider
     def collision_checks(self):
@@ -40,7 +42,6 @@ class Game:
                     self.score += 1
                     s_sprite = Spider((randint(0, 80), randint(0, 200)))
                     self.spider = pygame.sprite.GroupSingle(s_sprite)
-                    self.can_subtract = True
 
         if self.spider:
             for offscreen in self.offscreen:
@@ -48,6 +49,10 @@ class Game:
                     if self.lives > 0 and self.can_subtract == True:
                         self.lives -= 1
                         self.can_subtract = False
+
+            for onscreen in self.onscreen:
+                if pygame.sprite.spritecollide(onscreen, self.spider, False):
+                    self.can_subtract = True
 
     # displays the score in bottom left corner
     def display_score(self):
